@@ -19,4 +19,4 @@ class Normalizador(object):
 	
 	def recebe_texto(self, tarefa, formato, conteudo):
 		soup = bs4.BeautifulSoup(self.envia_texto(tarefa, formato, conteudo).text, "html.parser")
-		return soup.select('div.panel-body')[0].get_text().split('\n')[3]
+		return soup.select('div.panel-body')[0].get_text().strip('\n').split('\n', 1)[1]
