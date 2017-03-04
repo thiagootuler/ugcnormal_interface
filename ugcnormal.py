@@ -1,7 +1,7 @@
 import requests
 import bs4
 
-root_url = 'http://143.107.183.175:12980'
+root_url = 'http://143.107.183.175:12080'
 action_url = root_url + '/normalize'
 
 
@@ -19,4 +19,4 @@ class Normalizador(object):
 	
 	def recebe_texto(self, tarefa, formato, conteudo):
 		soup = bs4.BeautifulSoup(self.envia_texto(tarefa, formato, conteudo).text, "html.parser")
-		return soup.select('div.panel-body')[0].get_text().strip('\n').split('\n', 1)[1]
+		return soup.get_text().strip('\n').split('\n\n')[1].split(':', 1)[1]
