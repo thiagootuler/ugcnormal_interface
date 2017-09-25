@@ -1,7 +1,7 @@
 import requests
 import bs4
 
-root_url = 'http://143.107.183.175:12080'
+root_url = 'http://143.107.183.175:13180'
 action_url = root_url + '/normalize'
 
 
