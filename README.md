@@ -1,5 +1,5 @@
 # ugcnormal_interface
-Uma interface remota para utilização do normalizador de UGC (user-generated content) chamado UGCNorm@l.
+Uma interface remota para utilização do normalizador de UGC (user-generated content) chamado [UGCNorm@l](https://github.com/avanco/UGCNormal).
 
 ## Requisitos
 * beautifulsoup4: 4.4.1
