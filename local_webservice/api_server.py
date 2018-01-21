@@ -6,8 +6,11 @@ import requests
 import subprocess
 import io
 import re
+import os, errno
 
 app = Flask(__name__)
+file_path = "./temp/file.txt"
+directory = os.path.dirname(file_path)
 
 class normalizer(object):
     def __init__(self):
@@ -110,4 +113,9 @@ def proper_noun():
     return response
 
 if __name__ == '__main__':
+    try:
+        os.makedirs(directory)
+    except OSError as e:
+        if e.errno != errno.EEXIST:
+            raise
     app.run()
