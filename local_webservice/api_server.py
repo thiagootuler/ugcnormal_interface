@@ -21,7 +21,7 @@ class normalizer(object):
         File.close()
     
     def tokenizer(self, text):
-        print "Aplicando o tokenizador..."
+        print("Aplicando o tokenizador...")
         #'echo' + request.json['text'] + ' | ./tokenizer/webtok'
         echo = subprocess.Popen(['echo', text], stdout=subprocess.PIPE)
         tokenize = subprocess.Popen(['./tokenizer/webtok'], stdin=echo.stdout, stdout=subprocess.PIPE)
@@ -30,7 +30,7 @@ class normalizer(object):
 
     def speller(self, text):
         tokens = self.tokenizer(text)
-        print "Aplicando o speller..."
+        print("Aplicando o speller...")
         self.file_save(tokens)
         #subprocess.call('perl ./spell.pl -stat ./speller/lexicos/regra+cb_freq.txt -f ./input/in.txt > ./output/out.txt'.split())
         #process = subprocess.Popen('perl ./spell.pl -stat ./speller/lexicos/regra+cb_freq.txt -f ./temp/file.txt'.split(), shell=False, stdout=subprocess.PIPE)
@@ -43,7 +43,7 @@ class normalizer(object):
     
     def acronym_searcher(self, text):
         checked_text = self.speller(text)
-        print "Normalizando siglas..."
+        print("Normalizando siglas...")
         self.file_save(checked_text)
         process = subprocess.Popen('perl ./siglas_map.pl ./resources/lexico_siglas.txt ./temp/file.txt'.split(), shell=False, stdout=subprocess.PIPE)
         output = process.communicate()[0]
@@ -51,7 +51,7 @@ class normalizer(object):
         
     def untextese(self, text):
         text_with_acronyms = self.acronym_searcher(text)
-        print "Normalizando internetes..."
+        print("Normalizando internetes...")
         self.file_save(text_with_acronyms)
         process = subprocess.Popen('perl internetes_map.pl ./resources/lexico_internetes.txt ./resources/lexico_internetes_sigl_abrv.txt ./temp/file.txt'.split(), shell=False, stdout=subprocess.PIPE)
         output = process.communicate()[0]
@@ -59,7 +59,7 @@ class normalizer(object):
 
     def proper_noun_normalizer(self, text):
         without_textese = self.untextese(text)
-        print "Normalizando nomes proprios..."
+        print("Normalizando nomes proprios...")
         self.file_save(without_textese )
         process = subprocess.Popen('perl np_map.pl ./resources/lexico_nome_proprio.txt ./temp/file.txt'.split(), shell=False, stdout=subprocess.PIPE)
         output = process.communicate()[0]
