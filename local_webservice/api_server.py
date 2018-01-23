@@ -35,11 +35,9 @@ class normalizer(object):
         tokens = self.tokenizer(text)
         print("Aplicando o speller...")
         self.file_save(tokens)
-        #subprocess.call('perl ./spell.pl -stat ./speller/lexicos/regra+cb_freq.txt -f ./input/in.txt > ./output/out.txt'.split())
-        #process = subprocess.Popen('perl ./spell.pl -stat ./speller/lexicos/regra+cb_freq.txt -f ./temp/file.txt'.split(), shell=False, stdout=subprocess.PIPE)
         actual_direcory = subprocess.Popen('pwd', shell=False, stdout=subprocess.PIPE)
         previous_path = actual_direcory.communicate()[0]
-        command = 'perl ./spell.pl -stat ./lexicos/regra+cb_freq.txt -f ' + previous_path[:-1] + '/temp/file.txt'
+        command = 'perl ./speller/spell.pl -stat ./lexicos/regra+cb_freq.txt -f ' + previous_path[:-1] + '/temp/file.txt'
         process = subprocess.Popen(command.split(), shell=False, stdout=subprocess.PIPE, cwd='./speller/')
         output = process.communicate()[0]
         return output
@@ -56,7 +54,7 @@ class normalizer(object):
         text_with_acronyms = self.acronym_searcher(text)
         print("Normalizando internetes...")
         self.file_save(text_with_acronyms)
-        process = subprocess.Popen('perl internetes_map.pl ./resources/lexico_internetes.txt ./resources/lexico_internetes_sigl_abrv.txt ./temp/file.txt'.split(), shell=False, stdout=subprocess.PIPE)
+        process = subprocess.Popen('perl ./internetes_map.pl ./resources/lexico_internetes.txt ./resources/lexico_internetes_sigl_abrv.txt ./temp/file.txt'.split(), shell=False, stdout=subprocess.PIPE)
         output = process.communicate()[0]
         return output
 
@@ -64,7 +62,7 @@ class normalizer(object):
         without_textese = self.untextese(text)
         print("Normalizando nomes proprios...")
         self.file_save(without_textese )
-        process = subprocess.Popen('perl np_map.pl ./resources/lexico_nome_proprio.txt ./temp/file.txt'.split(), shell=False, stdout=subprocess.PIPE)
+        process = subprocess.Popen('perl ./np_map.pl ./resources/lexico_nome_proprio.txt ./temp/file.txt'.split(), shell=False, stdout=subprocess.PIPE)
         output = process.communicate()[0]
         return output     
     
