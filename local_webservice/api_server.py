@@ -37,7 +37,7 @@ class normalizer(object):
         self.file_save(tokens)
         actual_direcory = subprocess.Popen('pwd', shell=False, stdout=subprocess.PIPE)
         previous_path = actual_direcory.communicate()[0]
-        command = 'perl ./speller/spell.pl -stat ./lexicos/regra+cb_freq.txt -f ' + previous_path[:-1] + '/temp/file.txt'
+        command = 'perl ' + previous_path[:-1] + '/speller/spell.pl -stat ' + previous_path[:-1] + '/speller/lexicos/regra+cb_freq.txt -f ' + previous_path[:-1] + '/temp/file.txt'
         process = subprocess.Popen(command.split(), shell=False, stdout=subprocess.PIPE, cwd='./speller/')
         output = process.communicate()[0]
         return output
